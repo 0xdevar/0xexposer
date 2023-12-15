@@ -1,0 +1,12 @@
+hard_tabs = true
+trailing_comma = "never"
+max_width = 180
+# chain_width = 200
+# attr_fn_like_width = 200
+# array_width = 200
+# fn_call_width = 200
+# indent_style = "block"
+# struct_lit_single_line = false
+# struct_lit_width = 10
+# struct_variant_width = 100
+# use_small_heuristics = "max"
