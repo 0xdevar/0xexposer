@@ -48,7 +48,12 @@ impl EventHandler for Handler {
 			return;
 		}
 
-		let channel: GuildChannel = msg.channel(ctx.http).await.unwrap().guild().unwrap();
+		let channel: Option<GuildChannel> = msg.channel(ctx.http).await.unwrap().guild();
+
+		let channel = match channel {
+			Some(channel) => channel,
+			None => return
+		};
 
 		if !self.is_target_channel(channel) {
 			println!("insert: message sent in [{}] which is not included in config", msg.channel_id.get());
@@ -65,7 +70,12 @@ impl EventHandler for Handler {
 	}
 
 	async fn message_delete(&self, ctx: Context, channel_id: ChannelId, msg_id: MessageId, _guild_id: Option<serenity::all::GuildId>) {
-		let channel: GuildChannel = channel_id.to_channel(&ctx.http).await.unwrap().guild().unwrap();
+		let channel: Option<GuildChannel> = channel_id.to_channel(&ctx.http).await.unwrap().guild();
+
+		let channel = match channel {
+			Some(channel) => channel,
+			None => return
+		};
 
 		if !self.is_target_channel(channel) {
 			println!("delete: message sent in [{}] which is not included in config", channel_id);
